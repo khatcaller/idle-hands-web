@@ -1,0 +1,16 @@
+{
+  "name": "Idle Hands",
+  "short_name": "Idle Hands",
+  "description": "A drawer of fidget toys: a flickable spinner, bubble wrap, switches, a clacky keyboard, a click pen, a zipper, a music comb and a Newton's cradle.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E3EBE8",
+  "theme_color": "#2443D6",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
