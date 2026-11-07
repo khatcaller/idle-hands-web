@@ -17,7 +17,7 @@
   --ink:#18262D; --muted:#55676C; --line:#B9C8C3;
   --hero:#2443D6; --hero-hole:#1C37B8; --hero-ink:#F3F6FF; --hero-muted:#C2CDFF; --hero-line:rgba(255,255,255,.24);
   --sun:#FFC21A; --sun-deep:#C98A00; --mint:#12A884;
-  --pad:#EDF2F0;
+  --pad:#EDF2F0; --dock-bg:rgba(247,250,249,.92);
   --film:rgba(190,218,232,.45); --film-edge:rgba(110,150,175,.35);
   --bub-hi:rgba(255,255,255,.95); --bub-mid:rgba(255,255,255,.45); --bub-low:rgba(140,180,205,.3);
   --bub-shade:rgba(60,100,130,.24); --bub-drop:rgba(30,60,80,.25); --bub-edge:rgba(110,150,175,.5); --bub-flat:rgba(140,175,195,.16);
@@ -38,7 +38,7 @@
     --ink:#E2EDEA; --muted:#8FA4A8; --line:#2E4148;
     --hero:#1B34A8; --hero-hole:#162C8F; --hero-ink:#F3F6FF; --hero-muted:#AFBDF6; --hero-line:rgba(255,255,255,.2);
     --mint:#2FD3AC;
-    --pad:#1B2A30;
+    --pad:#1B2A30; --dock-bg:rgba(21,33,38,.92);
     --film:rgba(120,165,195,.1); --film-edge:rgba(150,195,220,.2);
     --bub-hi:rgba(255,255,255,.72); --bub-mid:rgba(255,255,255,.18); --bub-low:rgba(120,170,200,.2);
     --bub-shade:rgba(0,0,0,.35); --bub-drop:rgba(0,0,0,.45); --bub-edge:rgba(150,195,220,.32); --bub-flat:rgba(150,190,215,.07);
@@ -56,7 +56,7 @@
   --ink:#E2EDEA; --muted:#8FA4A8; --line:#2E4148;
   --hero:#1B34A8; --hero-hole:#162C8F; --hero-ink:#F3F6FF; --hero-muted:#AFBDF6; --hero-line:rgba(255,255,255,.2);
   --mint:#2FD3AC;
-  --pad:#1B2A30;
+  --pad:#1B2A30; --dock-bg:rgba(21,33,38,.92);
   --film:rgba(120,165,195,.1); --film-edge:rgba(150,195,220,.2);
   --bub-hi:rgba(255,255,255,.72); --bub-mid:rgba(255,255,255,.18); --bub-low:rgba(120,170,200,.2);
   --bub-shade:rgba(0,0,0,.35); --bub-drop:rgba(0,0,0,.45); --bub-edge:rgba(150,195,220,.32); --bub-flat:rgba(150,190,215,.07);
@@ -370,6 +370,44 @@ h1{margin:0;line-height:.9}
   .shaker.shake,.title-btn.wiggle .l,.swatch.fresh{animation:none}
   .bubble,.lever,.cap,.knob,.spin-stage svg,.key{transition:none}
 }
+/* Toy dock, Surprise me, and phone tuning */
+.skin-rows{display:flex;flex-direction:column;gap:12px}
+.moves-short{display:none;margin:0;font-size:13.5px;line-height:1.45;color:var(--hero-muted)}
+.hero,.tray,.secrets{scroll-margin-top:12px}
+.surprise svg,.dock-surprise svg{width:18px;height:18px}
+.dock{display:none}
+.dock-surprise{flex:none;display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border:0;border-radius:999px;background:var(--sun);color:#1F1600;font:700 13px/1 var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dock-chips{display:flex;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none;padding:2px}
+.dock-chips::-webkit-scrollbar{display:none}
+.dock-chip{flex:none;padding:10px 13px;border-radius:999px;border:1px solid var(--tray-edge);background:var(--tray);color:var(--ink);font:600 13px/1 var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dock-chip[aria-current="true"]{background:var(--hero);border-color:var(--hero);color:#FFFFFF}
+@media (max-width:620px){
+  .page{padding-block-end:calc(96px + env(safe-area-inset-bottom, 0px))}
+  .hero{gap:8px;padding:16px 16px 18px}
+  .spin-stage{max-width:280px}
+  .readout{gap:12px}
+  .moves{display:none}
+  .moves-short{display:block}
+  .skins{gap:8px;padding-top:12px}
+  .swatches{grid-auto-columns:72px}
+  .swatch{padding:8px 2px 6px}
+  .swatch .sv{width:44px;height:44px}
+  /* both skin rows become one swipeable strip */
+  .skin-rows{flex-direction:row;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .skin-rows .swatches{flex:none;overflow:visible;padding-bottom:0}
+  .skin-rows .eyebrow{display:none}
+  #swatchesArt{padding-left:10px;border-left:1px solid var(--hero-line)}
+  .t-kb{order:1}
+  .seg button,.chip-btn{padding:10px 14px}
+  .word{padding:8px 12px;font-size:12px}
+  .reset{padding:9px 0}
+  .key{height:42px}
+  .kb-row{gap:4px}
+  #surprise{display:none}
+  .toast{bottom:calc(88px + env(safe-area-inset-bottom, 0px))}
+  .dock{position:fixed;left:0;right:0;bottom:0;z-index:26;display:flex;align-items:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px));background:var(--dock-bg);border-top:1px solid var(--tray-edge);box-shadow:0 -10px 24px -16px rgba(0,0,0,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .25s ease}
+  body.typing .dock{transform:translateY(120%)}
+}
 </style>
 <meta name="description" content="A drawer of fidget toys: a flickable spinner, bubble wrap, switches, a clacky keyboard, a click pen, a zipper, a music comb and a Newton's cradle.">
 <meta name="theme-color" content="#2443D6">
@@ -386,6 +424,7 @@ h1{margin:0;line-height:.9}
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>
 .a2hs{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom, 0px));z-index:25;display:flex;align-items:center;gap:12px;max-width:520px;margin-inline:auto;padding:12px 10px 12px 16px;border-radius:14px;background:var(--toast-bg);color:var(--toast-ink);font-size:14px;line-height:1.4;box-shadow:0 12px 26px -12px rgba(0,0,0,.5)}
+@media (max-width:620px){.a2hs{bottom:calc(84px + env(safe-area-inset-bottom, 0px))}}
 .a2hs button{flex:none;width:36px;height:36px;margin-left:auto;border:0;border-radius:10px;background:none;color:inherit;font-size:22px;line-height:1;cursor:pointer}
 </style>
 </head>
@@ -406,6 +445,10 @@ h1{margin:0;line-height:.9}
         <span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="pip"></span>
         <span class="pips-label" id="pipsLabel" aria-hidden="true">0/8</span>
       </a>
+      <button id="surprise" class="mute surprise" type="button" aria-label="Surprise me: jump to a random toy and set it off">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg>
+        <span>Surprise me</span>
+      </button>
       <button id="mute" class="mute" type="button" aria-pressed="false" aria-label="Mute">
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none"/>
@@ -484,6 +527,7 @@ h1{margin:0;line-height:.9}
         <li><kbd>Tap</kbd><span>Nudge it a little faster.</span></li>
         <li><kbd>Hold</kbd><span>Brake.</span></li>
       </ul>
+      <p class="moves-short">Flick to spin it up · tap to nudge · hold to brake</p>
     </div>
 
     <div class="skins">
@@ -491,9 +535,11 @@ h1{margin:0;line-height:.9}
         <p class="eyebrow">Skins · <span id="skinCount">1 of 17</span> unlocked</p>
         <span class="skins-next" id="skinsNext"></span>
       </div>
-      <div class="swatches" id="swatches" role="radiogroup" aria-label="Spinner skins" style="--cols:8"></div>
-      <p class="eyebrow">Spin art · the pattern appears when it spins</p>
-      <div class="swatches" id="swatchesArt" role="radiogroup" aria-label="Spin-art skins" style="--cols:9"></div>
+      <div class="skin-rows">
+        <div class="swatches" id="swatches" role="radiogroup" aria-label="Spinner skins" style="--cols:8"></div>
+        <p class="eyebrow">Spin art · the pattern appears when it spins</p>
+        <div class="swatches" id="swatchesArt" role="radiogroup" aria-label="Spin-art skins" style="--cols:9"></div>
+      </div>
     </div>
   </section>
 
@@ -509,7 +555,7 @@ h1{margin:0;line-height:.9}
       <div class="tray-body">
         <div class="btn-col">
           <div class="arcade"><button class="cap" id="cap" type="button" aria-label="Big red button"></button></div>
-          <span class="hazard"><span>Do not press</span></span>
+          <span class="hazard"><span id="hazardText">Do not press</span></span>
         </div>
       </div>
       <p class="foot" id="btnFoot">Pressed 0 times</p>
@@ -583,7 +629,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="blobFoot">Press to squish · drag to stretch</p>
     </article>
 
-    <article class="tray span2">
+    <article class="tray span2 t-kb">
       <div class="tray-head"><h2>Clacky keyboard</h2><span class="spec">40% layout · type anywhere</span></div>
       <div class="tray-body col">
         <div class="kb-top">
@@ -726,6 +772,11 @@ h1{margin:0;line-height:.9}
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="te"></span><span class="tt"></span></div>
+
+<nav class="dock" id="dock" aria-label="Jump to a toy">
+  <button class="dock-surprise" id="dockSurprise" type="button" aria-label="Surprise me: jump to a random toy and set it off"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg><span>Surprise</span></button>
+  <div class="dock-chips" id="dockChips"></div>
+</nav>
 
 <script>
 (() => {
@@ -948,6 +999,9 @@ h1{margin:0;line-height:.9}
     crack(s) { for (let i = 0; i < 5; i++) noise({ dur: 0.012, vol: 0.25 + 0.2 * s, type: 'highpass', f0: rand(2500, 6500), at: i * rand(0.008, 0.02) }); tone({ f0: 150, f1: 60, dur: 0.08, vol: 0.25 * s }); },
     shatter() { noise({ dur: 0.5, vol: 0.55, type: 'highpass', f0: 2500, q: 0.7 }); for (let i = 0; i < 10; i++) tone({ f0: rand(2000, 5200), dur: rand(0.05, 0.15), vol: 0.04, at: rand(0, 0.35), attack: 0.001 }); tone({ f0: 110, f1: 50, dur: 0.25, vol: 0.4 }); },
     refreeze() { [1568, 2093, 2637].forEach((f, i) => tone({ type: 'triangle', f0: f, dur: 0.9, vol: 0.05, at: i * 0.12, attack: 0.08 })); },
+    mega() { tone({ f0: 140, f1: 28, dur: 0.9, vol: 0.95 }); noise({ dur: 0.7, vol: 0.8, type: 'lowpass', f0: 1400, f1: 90, q: 0.7 }); noise({ dur: 0.35, vol: 0.35, type: 'highpass', f0: 2500, at: 0.03 }); [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone({ type: 'triangle', f0: f, dur: 0.35, vol: 0.08, at: 0.25 + i * 0.07 })); },
+    chargeFull() { tone({ type: 'triangle', f0: 1318.51, dur: 0.25, vol: 0.1, attack: 0.002 }); tone({ type: 'triangle', f0: 1760, dur: 0.3, vol: 0.07, at: 0.05, attack: 0.002 }); },
+    surprise() { noise({ dur: 0.25, vol: 0.18, f0: 600, f1: 3000, q: 0.8 }); tone({ type: 'triangle', f0: 880, f1: 1320, dur: 0.15, vol: 0.08, at: 0.05 }); },
     boing(s = 0.6) {
       if (!live()) return;
       const e = clamp(s, 0.4, 1.6), t = ac.currentTime, dur = 0.35 + 0.25 * e;   // a bigger stretch gives a longer, lower boing
@@ -1036,6 +1090,10 @@ h1{margin:0;line-height:.9}
     add({ k: 'r', x, y, R: rand(34, 48), c, life: 0.7 });
   }
   const spark = (x, y, vx, vy, c) => add({ k: 's', x, y, vx, vy, c, life: rand(0.25, 0.6) });
+  const floatText = (x, y, text, c, size = 22) => add({ k: 't', x, y, vx: rand(-15, 15), vy: -80, text, c, size, life: 1.1 });
+  function hearts(x, y, n) {
+    for (let i = 0; i < n; i++) add({ k: 'h', x: x + rand(-20, 20), y, vx: rand(-25, 25), vy: rand(-150, -90), s: rand(7, 12), c: pick(['#FF4F93', '#FF8FC0', '#FF6A9A']), life: rand(0.9, 1.4) });
+  }
 
   function stepFX(dt) {
     if (!P.length) { if (painted) { ctx.clearRect(0, 0, W, H); painted = false; } return; }
@@ -1072,6 +1130,23 @@ h1{margin:0;line-height:.9}
         p.x += p.vx * dt; p.y += p.vy * dt;
         ctx.globalAlpha = a; ctx.fillStyle = p.c;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      } else if (p.k === 't') {
+        p.vy *= Math.exp(-1.6 * dt); p.x += p.vx * dt; p.y += p.vy * dt;
+        const sz = p.size * (0.6 + 0.4 * Math.min(1, p.t / 0.15));   // pops in, then drifts up and fades
+        ctx.globalAlpha = Math.min(1, a * 2.5);
+        ctx.font = `${Math.round(sz)}px "Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.lineWidth = 4; ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(15,20,40,.75)';
+        ctx.strokeText(p.text, p.x, p.y);
+        ctx.fillStyle = p.c; ctx.fillText(p.text, p.x, p.y);
+      } else if (p.k === 'h') {
+        p.vy *= Math.exp(-1 * dt); p.x += (p.vx + Math.sin(p.t * 7) * 18) * dt; p.y += p.vy * dt;
+        const s = p.s;
+        ctx.globalAlpha = Math.min(1, a * 2); ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.moveTo(p.x, p.y + s * 0.35);
+        ctx.bezierCurveTo(p.x - s, p.y - s * 0.2, p.x - s * 0.5, p.y - s, p.x, p.y - s * 0.45);
+        ctx.bezierCurveTo(p.x + s * 0.5, p.y - s, p.x + s, p.y - s * 0.2, p.x, p.y + s * 0.35);
+        ctx.fill();
       } else if (p.k === 'r') {
         const e = 1 - Math.pow(1 - p.t / p.life, 3);
         ctx.globalAlpha = a * 0.9; ctx.strokeStyle = p.c; ctx.lineWidth = 2.5 * a + 0.5;
@@ -1515,9 +1590,15 @@ h1{margin:0;line-height:.9}
     if (span > 0.008 && now - d.lastMove < 90) {
       const wp = (last.c - first.c) / span;
       if (Math.abs(wp) > 200) {
+        const before = Math.abs(omega);
         omega = clamp(omega + clamp(wp, -6000, 6000), -MAXW, MAXW);
         sfx.whoosh(Math.min(1, Math.abs(wp) / 3000));
         buzz(10);
+        const gained = Math.round((Math.abs(omega) - before) / 6);
+        if (gained) {
+          const r = stage.getBoundingClientRect();
+          floatText(r.left + r.width / 2 + rand(-60, 60), r.top + r.height * 0.18, `${gained > 0 ? '+' : '−'}${Math.abs(gained)}`, gained > 0 ? '#FFC21A' : '#9EE7FF', 22);
+        }
       }
     }
     saveBest(true);
@@ -1534,6 +1615,8 @@ h1{margin:0;line-height:.9}
     dir = dir || Math.sign(omega) || 1;
     omega = clamp(omega + dir * 540, -MAXW, MAXW);
     sfx.nudge(); buzz(8);
+    const r = stage.getBoundingClientRect();
+    floatText(r.left + r.width / 2 + rand(-40, 40), r.top + r.height * 0.2, '+90', '#FFC21A', 18);
   }
   function saveBest(force) {
     const now = performance.now();
@@ -1601,6 +1684,7 @@ h1{margin:0;line-height:.9}
       const rc = spinRect || spinSvg.getBoundingClientRect();
       spinRect = null;
       const ox = rc.left + rc.width / 2, oy = rc.top + rc.height / 2;
+      floatText(ox, oy - rc.height * 0.38, 'LIFTOFF!', '#FFC21A', 30);
       for (let i = 0; i < 70 * FXK; i++) {
         const a = rand(0, 6.28), v = rand(300, 900);
         spark(ox + Math.cos(a) * rc.width * 0.3, oy + Math.sin(a) * rc.width * 0.3, Math.cos(a) * v, Math.sin(a) * v, pick(PALETTE));
@@ -1755,7 +1839,7 @@ h1{margin:0;line-height:.9}
   /* ---------------- Big red button ---------------- */
   const cap = $('#cap'), btnFoot = $('#btnFoot');
   let presses = Math.max(0, +store.get('presses', 0) || 0);
-  const renderBtn = () => { btnFoot.textContent = presses === 1 ? 'Pressed 1 time' : `Pressed ${presses} times`; };
+  const renderBtn = () => { btnFoot.textContent = `${presses === 1 ? 'Pressed 1 time' : `Pressed ${presses} times`} · hold it for a mega boom`; };
   function fire() {
     presses++; store.set('presses', presses); renderBtn(); checkSkins();
     sfx.thunk(); buzz(30);
@@ -1763,13 +1847,59 @@ h1{margin:0;line-height:.9}
     confetti(rc.left + rc.width / 2, rc.top + rc.height / 2 - 10, 90);
     shake();
   }
-  const capLook = (el, on) => el.classList.toggle('down', on);
+  // A tap booms when you let go. Hold it and it charges: it shakes, glows and whines, and at full
+  // charge letting go sets off a mega boom across the whole drawer. A scroll cancels the press.
+  const CHARGE_MS = 1400, hazardText = $('#hazardText');
+  let charge = null, chargeSnd = null;
+  function chargeSound(on) {
+    if (on) {
+      if (!live() || chargeSnd) return;
+      const t = ac.currentTime, o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
+      o.type = 'sawtooth'; o.frequency.value = 70; f.type = 'lowpass'; f.frequency.value = 500;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.06, t + 0.1);
+      o.connect(f); f.connect(g); g.connect(master); o.start();
+      chargeSnd = { o, f, g };
+    } else if (chargeSnd) {
+      const t = ac.currentTime;
+      chargeSnd.g.gain.setTargetAtTime(0.0001, t, 0.03); chargeSnd.o.stop(t + 0.2);
+      chargeSnd = null;
+    }
+  }
+  function endCharge() {
+    charge = null; chargeSound(false);
+    cap.classList.remove('down'); cap.style.transform = ''; cap.style.filter = '';
+    hazardText.textContent = 'Do not press';
+  }
   cap.addEventListener('pointerdown', e => {
-    if (isMouseNonLeft(e)) return;
-    if (e.pointerType === 'mouse') { cap.classList.add('down'); fire(); } else laterTap(e, cap, fire, capLook);
+    if (isMouseNonLeft(e) || charge) return;
+    try { cap.setPointerCapture(e.pointerId); } catch (_) {}
+    charge = { id: e.pointerId, t0: performance.now(), lastTick: 0, full: false };
+    cap.classList.add('down');
   });
-  ['pointerup', 'pointerleave', 'pointercancel'].forEach(t => cap.addEventListener(t, () => cap.classList.remove('down')));
+  addEventListener('pointerup', e => {
+    if (!charge || e.pointerId !== charge.id) return;
+    const full = charge.full;
+    endCharge();
+    if (full) megaBoom(); else fire();
+  });
+  addEventListener('pointercancel', e => { if (charge && e.pointerId === charge.id) endCharge(); });
   cap.addEventListener('click', e => { if (e.detail === 0) fire(); });
+  function stepCharge() {
+    if (!charge) return;
+    const now = performance.now(), k = Math.min(1, (now - charge.t0) / CHARGE_MS);
+    if (k < 0.12) return;   // a quick tap stays a plain press
+    if (!chargeSnd) chargeSound(true);
+    const j = k * 2.4;
+    cap.style.transform = `translate(${rand(-j, j).toFixed(1)}px, ${(1 + rand(-j, j)).toFixed(1)}px) scale(${(1 + k * 0.05).toFixed(3)})`;
+    cap.style.filter = `brightness(${(1 + k * 0.45).toFixed(2)}) drop-shadow(0 0 ${Math.round(k * 22)}px rgba(255,80,60,${(0.4 + k * 0.5).toFixed(2)}))`;
+    if (chargeSnd) {
+      chargeSnd.o.frequency.setTargetAtTime(70 + 460 * k, ac.currentTime, 0.05);
+      chargeSnd.f.frequency.setTargetAtTime(400 + 2400 * k, ac.currentTime, 0.05);
+    }
+    if (now - charge.lastTick > 190 - 150 * k) { charge.lastTick = now; buzz(Math.round(4 + k * 14)); }
+    hazardText.textContent = k < 1 ? 'Keep holding' : 'Let go!';
+    if (k >= 1 && !charge.full) { charge.full = true; sfx.chargeFull(); buzz(30); }
+  }
 
   /* ---------------- Blob ---------------- */
   const blobWrap = $('#blob'), blobSvg = $('#blobSvg'), blobBody = $('#blobBody'), blobShadow = $('#blobShadow');
@@ -1790,7 +1920,11 @@ h1{margin:0;line-height:.9}
     grab = e ? { id: e.pointerId, x: e.clientX, y: e.clientY } : null;
     sq.t = 1; sq.v += 5;
     blobWrap.classList.add('squish');
-    if (isCat) sfx.mew(); else sfx.squelch();
+    if (isCat) {
+      sfx.mew();
+      const r = blobSvg.getBoundingClientRect();
+      hearts(r.left + r.width / 2, r.top + r.height * 0.25, 4);
+    } else sfx.squelch();
     buzz(16);
     squishes++;
     blobFoot.textContent = squishes === 1 ? 'Squished 1 time · drag to stretch' : `Squished ${squishes} times · drag to stretch`;
@@ -3580,6 +3714,94 @@ h1{margin:0;line-height:.9}
     if (active || icc.dirty) { drawIce(); icc.dirty = false; }
   }
 
+  /* ---------------- Mega boom: the whole drawer reacts ---------------- */
+  let megaCount = Math.max(0, +store.get('megaBooms', 0) || 0);
+  function sweepDial() {   // up to 22 and back, so it never counts toward the cat secret
+    const start = level, up = Math.max(0, 22 - start), back = (Math.random() * 14) | 0;
+    for (let i = 1; i <= up; i++) setTimeout(() => setLevel(start + i), i * 28);
+    for (let i = 1; i <= 22 - back; i++) setTimeout(() => setLevel(22 - i), up * 28 + 200 + i * 28);
+  }
+  function joyKick() {
+    const a = rand(0, Math.PI * 2), R = joyGeo().R;
+    jx = Math.cos(a) * R; jy = Math.sin(a) * R; jvx = jvy = 0;
+    sfx.joyWall(); joy.dirty = true;
+  }
+  function megaBoom() {
+    presses++; store.set('presses', presses); renderBtn(); checkSkins();
+    megaCount++; store.set('megaBooms', megaCount);
+    sfx.mega(); buzz([60, 40, 40, 40, 25]);
+    const rc = cap.getBoundingClientRect(), cx = rc.left + rc.width / 2, cy = rc.top + rc.height / 2;
+    confetti(cx, cy, 220, 1.6); rain(120);
+    floatText(cx, cy - 70, 'MEGA BOOM!', '#FFC21A', 32);
+    shake(); setTimeout(shake, 420);
+    const wave = [
+      () => MAGIC.spin(), () => MAGIC.pop(), () => toggles.forEach((b, i) => setTimeout(() => flip(i), i * 50)), sweepDial,
+      () => { sq.v += 7; st.v += 9; ln.v += rand(-60, 60); }, swingCradle, () => { gW = (Math.random() < 0.5 ? -1 : 1) * 18; },
+      joyKick, () => MAGIC.crack(), topple, combRun, zipAuto, togglePen
+    ];
+    wave.forEach((f, i) => setTimeout(f, 150 + i * 80));
+    toast('Mega boom', megaCount === 1 ? 'Everything in the drawer felt that.' : `Mega boom number ${megaCount}.`);
+  }
+
+  /* ---------------- Toy dock and Surprise me ---------------- */
+  const SHORT = {
+    'Bubble wrap': 'Bubbles', 'Big red button': 'Button', 'Switch panel': 'Switches', 'Clicky dial': 'Dial', 'Squish blob': 'Blob', 'Squish cat': 'Blob',
+    'Clacky keyboard': 'Keys', 'Click pen': 'Pen', 'Zipper': 'Zipper', 'Music comb': 'Comb', "Newton's cradle": 'Cradle', 'Zen garden': 'Zen',
+    'Sticker peel': 'Stickers', 'Gear train': 'Gears', 'Arcade joystick': 'Joystick', 'Ice sheet': 'Ice', 'Domino run': 'Dominoes'
+  };
+  const SURPRISES = {
+    Spinner: () => MAGIC.spin(), Bubbles: () => MAGIC.pop(), Button: megaBoom, Switches: () => MAGIC.flip(), Dial: sweepDial,
+    Blob: () => MAGIC.squish(), Keys: () => typeWord(pick(MAGIC_WORDS.filter(w => w !== 'boom'))), Pen: togglePen, Zipper: zipAuto,
+    Comb: combRun, Cradle: swingCradle, Zen: () => $('#zenSmooth').click(), Stickers: () => { if (!stkPeel && stkIn >= 1) peelOff(); },
+    Gears: () => { gW = (Math.random() < 0.5 ? -1 : 1) * 14; }, Joystick: joyKick, Ice: () => MAGIC.crack(), Dominoes: topple
+  };
+  const sections = [{ el: $('.hero'), label: 'Spinner' },
+    ...$$('.tray').map(el => ({ el, label: SHORT[$('h2', el).textContent] || $('h2', el).textContent })),
+    { el: $('#secrets'), label: 'Secrets' }];
+  const dockChips = $('#dockChips');
+  let currentSection = sections[0];
+  function buildDock() {   // in the order the toys appear on this screen
+    const order = sections.slice().sort((a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top);
+    dockChips.textContent = '';
+    order.forEach(s => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'dock-chip'; b.textContent = s.label;
+      b.addEventListener('click', () => goTo(s));
+      s.chip = b; dockChips.appendChild(b);
+    });
+    markSection(currentSection);
+  }
+  function markSection(s) {
+    currentSection = s;
+    sections.forEach(x => { if (x.chip) x.chip.setAttribute('aria-current', x === s ? 'true' : 'false'); });
+    if (s.chip && dockChips.offsetParent) dockChips.scrollTo({ left: s.chip.offsetLeft - dockChips.clientWidth / 2 + s.chip.offsetWidth / 2, behavior: RM ? 'auto' : 'smooth' });
+  }
+  function goTo(s) { s.el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' }); buzz(5); }
+  if (window.IntersectionObserver) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const s = sections.find(x => x.el === en.target);
+        if (s && s !== currentSection) markSection(s);
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => io.observe(s.el));
+  }
+  function surprise() {
+    const s = pick(sections.filter(x => SURPRISES[x.label] && x !== currentSection));
+    sfx.surprise(); buzz([8, 30, 8]);
+    goTo(s);
+    setTimeout(() => SURPRISES[s.label](), RM ? 150 : 650);
+  }
+  $('#surprise').addEventListener('click', surprise);
+  $('#dockSurprise').addEventListener('click', surprise);
+  let dockTimer = 0;
+  addEventListener('resize', () => { clearTimeout(dockTimer); dockTimer = setTimeout(buildDock, 300); });
+  // The dock steps aside while the phone keyboard is up
+  kbLine.addEventListener('focus', () => document.body.classList.add('typing'));
+  kbLine.addEventListener('blur', () => document.body.classList.remove('typing'));
+  if (window.matchMedia && matchMedia('(pointer: coarse)').matches) $('.tag').textContent = 'A drawer of desk toys. Tap everything.';
+
   /* ---------------- Title: party mode ---------------- */
   const titleBtn = $('#titleBtn');
   let taps = 0, lastTap = 0, partyTimer = 0;
@@ -3655,6 +3877,7 @@ h1{margin:0;line-height:.9}
   cFit();
   renderSongs();
   comb.fit();
+  buildDock();
   [zen, stk, grc, joy, dmc, icc].forEach(t => t.fit());
   renderZenFoot(); renderStkFoot(); renderGearFoot(); renderJoyFoot(); renderDomFoot(); renderIceFoot();
 
@@ -3666,6 +3889,7 @@ h1{margin:0;line-height:.9}
     if (!spinRect && Math.abs(omega) > 3900) spinRect = spinSvg.getBoundingClientRect();   // only needed for sparks above 650 RPM
     stepSpinner(dt, now);
     stepBlob(dt);
+    stepCharge();
     stepZip(dt);
     stepCradle(dt);
     stepComb(dt);
