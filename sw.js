@@ -1,5 +1,5 @@
 // Offline support for the web version. The build script stamps a new cache name on every deploy.
-const CACHE = 'idle-hands-47c685bc34';
+const CACHE = 'idle-hands-fac92e53af';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './privacy.html',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
 
