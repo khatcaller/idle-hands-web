@@ -359,8 +359,8 @@ h1{margin:0;line-height:.9}
 .fine{margin:26px 0 0;color:var(--muted);font-size:13px}
 
 /* Toast */
-.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:30;display:flex;flex-direction:column;gap:2px;max-width:calc(100% - 32px);padding:12px 18px;border-radius:16px;background:var(--toast-bg);color:var(--toast-ink);box-shadow:0 16px 30px -12px rgba(0,0,0,.45);transform:translate(-50%, calc(100% + 40px));transition:transform .4s cubic-bezier(.2,1.4,.4,1);pointer-events:none}
-.toast.show{transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:30;display:flex;flex-direction:column;gap:2px;max-width:calc(100% - 32px);padding:12px 18px;border-radius:16px;background:var(--toast-bg);color:var(--toast-ink);box-shadow:0 16px 30px -12px rgba(0,0,0,.45);transform:translate(-50%, calc(100% + 40px));opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .2s,visibility 0s .4s;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .15s,visibility 0s}
 .toast .te{font:600 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--toast-accent)}
 .toast .tt{font-weight:600;font-size:15px}
 
@@ -1056,7 +1056,7 @@ h1{margin:0;line-height:.9}
 
   const P = [], MAXP = 900;
   let painted = false;
-  const add = p => { if (P.length < MAXP) { p.t = 0; P.push(p); } };
+  const add = p => { if (P.length < MAXP) { p.t = 0; P.push(p); return p; } return null; };
 
   function confetti(x, y, n, spread = 1.1) {
     n = Math.round(n * FXK);
@@ -1433,7 +1433,7 @@ h1{margin:0;line-height:.9}
   const LIFTOFF = 2000, LAND = 1700, MAXW = 21600;   // MAXW in degrees per second (3600 RPM)
   let phi = 0, omega = 960, spins = 0, spinsTotal = Math.max(0, +store.get('spinsTotal', 0) || 0), spinsSaved = 0;
   let best = Math.max(0, +store.get('best', 0) || 0), bestDirty = false, lastSave = 0;
-  let lifted = false, tickAcc = 0, drag = null, shownRpm = -1, shownSpins = -1, humQuiet = false, drawnStill = false, spinRect = null;
+  let lifted = false, tickAcc = 0, drag = null, shownRpm = -1, shownSpins = -1, humQuiet = false, drawnStill = false, spinRect = null, combo = null;
   // Where the spinner sits on screen, for sparks. Read at the start of a frame, refreshed on scroll and resize
   addEventListener('scroll', () => { spinRect = null; }, { passive: true });
   addEventListener('resize', () => { spinRect = null; });
@@ -1595,9 +1595,15 @@ h1{margin:0;line-height:.9}
         sfx.whoosh(Math.min(1, Math.abs(wp) / 3000));
         buzz(10);
         const gained = Math.round((Math.abs(omega) - before) / 6);
-        if (gained) {
-          const r = stage.getBoundingClientRect();
-          floatText(r.left + r.width / 2 + rand(-60, 60), r.top + r.height * 0.18, `${gained > 0 ? '+' : '−'}${Math.abs(gained)}`, gained > 0 ? '#FFC21A' : '#9EE7FF', 22);
+        if (gained > 0 && combo && combo.t < 0.8 && P.includes(combo)) {
+          // Quick flicks add up on one counter that bumps each time, instead of a pile of numbers
+          combo.sum += gained; combo.text = `+${combo.sum}`; combo.t = 0;
+          combo.x = combo.x0; combo.y = combo.y0; combo.vy = -80; combo.size = Math.min(36, combo.size + 2);
+        } else if (gained) {
+          const r = stage.getBoundingClientRect(), x = r.left + r.width / 2 + rand(-60, 60), y = r.top + r.height * 0.18;
+          combo = floatText(x, y, `${gained > 0 ? '+' : '−'}${Math.abs(gained)}`, gained > 0 ? '#FFC21A' : '#9EE7FF', 22);
+          if (combo) Object.assign(combo, { sum: gained, x0: x, y0: y, vx: 0 });
+          if (gained < 0) combo = null;
         }
       }
     }
@@ -1684,7 +1690,7 @@ h1{margin:0;line-height:.9}
       const rc = spinRect || spinSvg.getBoundingClientRect();
       spinRect = null;
       const ox = rc.left + rc.width / 2, oy = rc.top + rc.height / 2;
-      floatText(ox, oy - rc.height * 0.38, 'LIFTOFF!', '#FFC21A', 30);
+      floatText(ox, oy + rc.height * 0.06, 'LIFTOFF!', '#FFC21A', 34);
       for (let i = 0; i < 70 * FXK; i++) {
         const a = rand(0, 6.28), v = rand(300, 900);
         spark(ox + Math.cos(a) * rc.width * 0.3, oy + Math.sin(a) * rc.width * 0.3, Math.cos(a) * v, Math.sin(a) * v, pick(PALETTE));
