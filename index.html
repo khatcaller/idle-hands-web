@@ -359,10 +359,28 @@ h1{margin:0;line-height:.9}
 .fine{margin:26px 0 0;color:var(--muted);font-size:13px}
 
 /* Toast */
-.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:30;display:flex;flex-direction:column;gap:2px;max-width:calc(100% - 32px);padding:12px 18px;border-radius:16px;background:var(--toast-bg);color:var(--toast-ink);box-shadow:0 16px 30px -12px rgba(0,0,0,.45);transform:translate(-50%, calc(100% + 40px));opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .2s,visibility 0s .4s;pointer-events:none}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom, 0px));z-index:30;display:flex;align-items:center;gap:16px;width:max-content;max-width:calc(100% - 32px);padding:12px 18px;border-radius:16px;background:var(--toast-bg);color:var(--toast-ink);box-shadow:0 16px 30px -12px rgba(0,0,0,.45);transform:translate(-50%, calc(100% + 40px));opacity:0;visibility:hidden;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .2s,visibility 0s .4s;pointer-events:none}
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .15s,visibility 0s}
 .toast .te{font:600 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--toast-accent)}
 .toast .tt{font-weight:600;font-size:15px}
+.toast .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.toast .ta{flex:none;margin-right:-6px;padding:10px 16px;border:0;border-radius:999px;background:var(--toast-accent);color:var(--toast-bg);font:700 13px/1 var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.toast .ta[hidden]{display:none}
+.toast.show.act{pointer-events:auto}
+
+/* Sharing: a link to every toy, and a flash on the toy a link lands on */
+.share svg{width:18px;height:18px}
+.tray-share{align-self:center;flex:none;display:grid;place-items:center;width:30px;height:30px;margin:-4px auto -4px -6px;padding:0;border:0;border-radius:999px;background:none;color:var(--muted);cursor:pointer;opacity:.7;transition:opacity .15s,background .15s,color .15s}
+.tray-share svg{width:15px;height:15px}
+.tray-share:hover{opacity:1;color:var(--ink);background:var(--pad)}
+@media (hover:hover) and (pointer:fine){
+  .tray-share{opacity:0}
+  .tray:hover .tray-share,.tray-share:focus-visible{opacity:1}
+}
+.dock-share{flex:none;display:grid;place-items:center;width:38px;height:38px;padding:0;border:1px solid var(--tray-edge);border-radius:999px;background:var(--tray);color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dock-share svg{width:18px;height:18px}
+.hl{animation:hl 2.2s ease-out}
+@keyframes hl{0%,40%{outline:4px solid var(--sun);outline-offset:4px}100%{outline:4px solid transparent;outline-offset:4px}}
 
 @media (prefers-reduced-motion: reduce){
   .page.party{animation-duration:8s}
@@ -403,22 +421,33 @@ h1{margin:0;line-height:.9}
   .reset{padding:9px 0}
   .key{height:42px}
   .kb-row{gap:4px}
-  #surprise{display:none}
+  #surprise,#share,.tray-share{display:none}
   .toast{bottom:calc(88px + env(safe-area-inset-bottom, 0px))}
   .dock{position:fixed;left:0;right:0;bottom:0;z-index:26;display:flex;align-items:center;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom, 0px));background:var(--dock-bg);border-top:1px solid var(--tray-edge);box-shadow:0 -10px 24px -16px rgba(0,0,0,.45);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .25s ease}
   body.typing .dock{transform:translateY(120%)}
 }
 </style>
-<meta name="description" content="A drawer of fidget toys: a flickable spinner, bubble wrap, switches, a clacky keyboard, a click pen, a zipper, a music comb and a Newton's cradle.">
+<meta name="description" content="A free drawer of 17 fidget toys with sound and haptics: a fidget spinner, bubble wrap, a clacky keyboard, dominoes, ice to crack, a zen garden and 8 hidden secrets. No ads, nothing to install.">
 <meta name="theme-color" content="#2443D6">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Idle Hands">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta property="og:title" content="Idle Hands">
-<meta property="og:description" content="A drawer of fidget toys: a flickable spinner, bubble wrap, switches, a clacky keyboard, a click pen, a zipper, a music comb and a Newton's cradle.">
-<meta property="og:image" content="https://khatcaller.github.io/idle-hands-web/icons/icon-512.png">
+<link rel="canonical" href="https://khatcaller.github.io/idle-hands-web/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Idle Hands">
+<meta property="og:title" content="Idle Hands: 17 fidget toys in your browser">
+<meta property="og:description" content="A free drawer of 17 fidget toys with sound and haptics: a fidget spinner, bubble wrap, a clacky keyboard, dominoes, ice to crack, a zen garden and 8 hidden secrets. No ads, nothing to install.">
 <meta property="og:url" content="https://khatcaller.github.io/idle-hands-web/">
+<meta property="og:image" content="https://khatcaller.github.io/idle-hands-web/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Idle Hands: a drawer of 17 fidget toys, shown on two phones with the spinner at liftoff, cracked ice and dominoes.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Idle Hands: 17 fidget toys in your browser">
+<meta name="twitter:description" content="A free drawer of 17 fidget toys with sound and haptics: a fidget spinner, bubble wrap, a clacky keyboard, dominoes, ice to crack, a zen garden and 8 hidden secrets. No ads, nothing to install.">
+<meta name="twitter:image" content="https://khatcaller.github.io/idle-hands-web/og.jpg">
+<meta name="twitter:image:alt" content="Idle Hands: a drawer of 17 fidget toys, shown on two phones with the spinner at liftoff, cracked ice and dominoes.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -449,6 +478,10 @@ h1{margin:0;line-height:.9}
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg>
         <span>Surprise me</span>
       </button>
+      <button id="share" class="mute share" type="button" aria-label="Share Idle Hands">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V3"/><path d="M8 7l4-4 4 4"/><path d="M8.5 10H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-1.5"/></svg>
+        <span>Share</span>
+      </button>
       <button id="mute" class="mute" type="button" aria-pressed="false" aria-label="Mute">
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" stroke="none"/>
@@ -460,7 +493,7 @@ h1{margin:0;line-height:.9}
     </div>
   </header>
 
-  <section class="hero" aria-label="Fidget spinner">
+  <section class="hero" id="spinner" aria-label="Fidget spinner">
     <div id="spinStage" class="spin-stage" role="button" tabindex="0" aria-label="Fidget spinner. Flick to spin it. Press Space to nudge it faster.">
       <svg id="spinSvg" viewBox="-150 -150 300 300" aria-hidden="true">
         <defs>
@@ -544,13 +577,13 @@ h1{margin:0;line-height:.9}
   </section>
 
   <section class="toys" aria-label="Desk toys">
-    <article class="tray span2">
+    <article class="tray span2" id="bubble-wrap">
       <div class="tray-head"><h2>Bubble wrap</h2><span class="spec">30 cells · 10 mm</span></div>
       <div class="tray-body"><div class="sheet" id="sheet"></div></div>
       <p class="foot" id="bubbleFoot">Popped 0 of 30</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="big-red-button">
       <div class="tray-head"><h2>Big red button</h2><span class="spec">60 mm arcade</span></div>
       <div class="tray-body">
         <div class="btn-col">
@@ -561,7 +594,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="btnFoot">Pressed 0 times</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="switch-panel">
       <div class="tray-head"><h2>Switch panel</h2><span class="spec">5 × SPST toggle</span></div>
       <div class="tray-body">
         <div class="panel">
@@ -575,7 +608,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="swFoot">0 of 5 on</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="clicky-dial">
       <div class="tray-head"><h2>Clicky dial</h2><span class="spec">24 detents</span></div>
       <div class="tray-body">
         <div class="dial" id="dial">
@@ -590,7 +623,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="dialFoot">Level 2 of 24</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="squish-blob">
       <div class="tray-head"><h2 id="blobTitle">Squish blob</h2><span class="spec">Shore 00-10 gel</span></div>
       <div class="tray-body">
         <div id="blob" class="blob-wrap" role="button" tabindex="0" aria-label="Squish blob. Press to squish.">
@@ -629,7 +662,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="blobFoot">Press to squish · drag to stretch</p>
     </article>
 
-    <article class="tray span2 t-kb">
+    <article class="tray span2 t-kb" id="clacky-keyboard">
       <div class="tray-head"><h2>Clacky keyboard</h2><span class="spec">40% layout · type anywhere</span></div>
       <div class="tray-body col">
         <div class="kb-top">
@@ -648,7 +681,7 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="kbFoot">0 WPM · 0 keys</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="click-pen">
       <div class="tray-head"><h2>Click pen</h2><span class="spec">Retractable · 0.7 mm</span></div>
       <div class="tray-body col">
         <button id="pen" class="pen" type="button" aria-pressed="false" aria-label="Click pen">
@@ -677,13 +710,13 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="penFoot">Click the pen, then doodle on the pad.</p>
     </article>
 
-    <article class="tray span3 t-zip">
+    <article class="tray span3 t-zip" id="zipper">
       <div class="tray-head"><h2>Zipper</h2><span class="spec">No. 5 brass teeth</span></div>
       <div class="tray-body"><canvas id="zip" role="slider" tabindex="0" aria-label="Zipper" aria-valuemin="0" aria-valuemax="100" aria-valuenow="62" aria-valuetext="62% open"></canvas></div>
       <p class="foot" id="zipFoot">Drag the pull to zip and unzip · 62% open</p>
     </article>
 
-    <article class="tray span2">
+    <article class="tray span2" id="music-comb">
       <div class="tray-head"><h2>Music comb</h2><span class="spec">Print-in-place · one tine per note</span></div>
       <div class="tray-body col">
         <div class="seg" id="songSeg" role="radiogroup" aria-label="Song"></div>
@@ -692,13 +725,13 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="combFoot">Drag across the tines to play the song</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="newtons-cradle">
       <div class="tray-head"><h2>Newton's cradle</h2><span class="spec">5 steel balls</span></div>
       <div class="tray-body"><canvas id="cradle" role="button" tabindex="0" aria-label="Newton's cradle. Drag a ball out and let go. Press Space to swing the end ball."></canvas></div>
       <p class="foot" id="cradleFoot">Pull a ball out and let go · 0 clacks</p>
     </article>
 
-    <article class="tray span2">
+    <article class="tray span2" id="zen-garden">
       <div class="tray-head"><h2>Zen garden</h2><span class="spec">Raked sand · 3 stones</span></div>
       <div class="tray-body col">
         <div class="kb-top">
@@ -713,31 +746,31 @@ h1{margin:0;line-height:.9}
       <p class="foot" id="zenFoot">Drag to rake · drag a stone to move it</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="sticker-peel">
       <div class="tray-head"><h2>Sticker peel</h2><span class="spec">Kiss-cut vinyl · 6 designs</span></div>
       <div class="tray-body"><canvas id="sticker" class="toy-canvas" tabindex="0" role="button" aria-label="Sticker sheet. Grab a corner of the sticker and peel it off. Press Space to peel it."></canvas></div>
       <p class="foot" id="stickerFoot">Grab a corner and peel</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="gear-train">
       <div class="tray-head"><h2>Gear train</h2><span class="spec">4 gears · 20 : 12 : 16 : 10</span></div>
       <div class="tray-body"><canvas id="gears" class="toy-canvas" tabindex="0" role="button" aria-label="Gear train. Drag any gear to turn them all. Arrow keys turn it a tooth at a time."></canvas></div>
       <p class="foot" id="gearFoot">Drag any gear · the green one spins twice as fast</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="arcade-joystick">
       <div class="tray-head"><h2>Arcade joystick</h2><span class="spec">4 microswitches · spring return</span></div>
       <div class="tray-body"><canvas id="joy" class="toy-canvas" tabindex="0" role="button" aria-label="Arcade joystick. Push it in any direction and let go. Arrow keys push it too."></canvas></div>
       <p class="foot" id="joyFoot">Push it anywhere and let go · 0 clicks</p>
     </article>
 
-    <article class="tray">
+    <article class="tray" id="ice-sheet">
       <div class="tray-head"><h2>Ice sheet</h2><span class="spec">Pond ice · 2 cm thick</span></div>
       <div class="tray-body"><canvas id="ice" class="toy-canvas" tabindex="0" role="button" aria-label="Ice sheet. Tap to crack it. Crack it enough and it shatters, then freezes over again. Press Space to crack it."></canvas></div>
       <p class="foot" id="iceFoot">Tap the ice to crack it</p>
     </article>
 
-    <article class="tray span3">
+    <article class="tray span3" id="domino-run">
       <div class="tray-head"><h2>Domino run</h2><span class="spec">Tap the left side of a domino to push it right</span></div>
       <div class="tray-body col">
         <canvas id="dominoes" class="toy-canvas" tabindex="0" role="button" aria-label="Domino run. Tap a domino to knock it over and start the chain. Press Space to start from the left."></canvas>
@@ -771,11 +804,12 @@ h1{margin:0;line-height:.9}
 </div>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"><span class="te"></span><span class="tt"></span></div>
+<div class="toast" id="toast"><span class="tx" role="status" aria-live="polite"><span class="te"></span><span class="tt"></span></span><button class="ta" type="button" hidden>Share</button></div>
 
 <nav class="dock" id="dock" aria-label="Jump to a toy">
   <button class="dock-surprise" id="dockSurprise" type="button" aria-label="Surprise me: jump to a random toy and set it off"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1.5" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1.5" fill="currentColor" stroke="none"/></svg><span>Surprise</span></button>
   <div class="dock-chips" id="dockChips"></div>
+  <button class="dock-share" id="dockShare" type="button" aria-label="Share this toy"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V3"/><path d="M8 7l4-4 4 4"/><path d="M8.5 10H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-1.5"/></svg></button>
 </nav>
 
 <script>
@@ -1157,17 +1191,99 @@ h1{margin:0;line-height:.9}
   }
 
   /* ---------------- Toast + shake ---------------- */
-  const toastEl = $('#toast'), toastE = $('.te', toastEl), toastT = $('.tt', toastEl);
+  const toastEl = $('#toast'), toastE = $('.te', toastEl), toastT = $('.tt', toastEl), toastA = $('.ta', toastEl);
   const tq = [];
-  let toastBusy = false;
-  function toast(eyebrow, text) { tq.push([eyebrow, text]); if (!toastBusy) nextToast(); }
+  let toastBusy = false, toastAct = null, toastTimer = 0;
+  // act: optional function for the toast's Share button
+  function toast(eyebrow, text, act) { tq.push([eyebrow, text, act]); if (!toastBusy) nextToast(); }
   function nextToast() {
     const m = tq.shift();
     if (!m) { toastBusy = false; return; }
     toastBusy = true;
     toastE.textContent = m[0]; toastT.textContent = m[1];
+    toastAct = m[2] || null;
+    toastA.hidden = !toastAct;
+    toastEl.classList.toggle('act', !!toastAct);
     toastEl.classList.add('show');
-    setTimeout(() => { toastEl.classList.remove('show'); setTimeout(nextToast, 420); }, 2800);
+    toastTimer = setTimeout(hideToast, toastAct ? 6000 : 2800);
+  }
+  function hideToast() {
+    clearTimeout(toastTimer);
+    toastEl.classList.remove('show');
+    setTimeout(nextToast, 420);
+  }
+  toastA.addEventListener('click', () => {
+    if (!toastEl.classList.contains('show')) return;
+    const act = toastAct;
+    toastAct = null;
+    hideToast();
+    if (act) act();
+  });
+
+  /* ---------------- Sharing ----------------
+     Links always point at the public web version, so they work from the app and the artifact too.
+     The app uses the native share sheet, browsers use theirs, and anything else copies the link. */
+  const SITE = 'https://khatcaller.github.io/idle-hands-web/';
+  const TOY_COUNT = $$('.tray').length + 1;
+  const fmt = n => n.toLocaleString('en-US');
+  const TOY_LINES = {
+    'bubble-wrap': 'Bubble wrap that never runs out. Go on, pop some.',
+    'big-red-button': "Whatever you do, don't hold down the big red button.",
+    'switch-panel': 'Five chunky toggle switches. Flick them.',
+    'clicky-dial': 'A clicky dial with 24 detents. Turn it.',
+    'squish-blob': 'Squish this blob.',
+    'clacky-keyboard': 'A clacky mechanical keyboard. Type something.',
+    'click-pen': 'A click pen. You know you want to.',
+    'zipper': 'Zip and unzip this zipper.',
+    'music-comb': 'Sweep a finger across this music comb.',
+    'newtons-cradle': "Pull back a ball on this Newton's cradle.",
+    'zen-garden': 'Rake a little zen garden.',
+    'sticker-peel': 'Peel some stickers off the sheet.',
+    'gear-train': 'Spin four meshed gears.',
+    'arcade-joystick': 'Waggle an arcade joystick.',
+    'ice-sheet': 'Crack a sheet of ice.',
+    'domino-run': 'Knock over a domino run.'
+  };
+  function gameText() {
+    if (best >= 1000) return `I got the fidget spinner to ${fmt(best)} RPM in Idle Hands. Beat that.`;
+    return `Idle Hands: a free drawer of ${TOY_COUNT} fidget toys. Bubble wrap, a fidget spinner, a clacky keyboard and ${SECRETS.length} hidden secrets.`;
+  }
+  function shareToy(id) {
+    if (TOY_LINES[id]) share(`${TOY_LINES[id]} It's one of ${TOY_COUNT} fidget toys in Idle Hands.`, id);
+    else share(gameText());
+  }
+  let sharing = false;
+  async function share(text, hash) {
+    if (sharing) return;
+    sharing = true;
+    const url = SITE + (hash ? '#' + hash : '');
+    try {
+      const S = NATIVE && CAP.Plugins && CAP.Plugins.Share;
+      if (S && S.share) {
+        try { await S.share({ title: 'Idle Hands', text, url, dialogTitle: 'Share Idle Hands' }); } catch (e) {}   // closing the sheet rejects too
+        return;
+      }
+      if (navigator.share) {
+        try { await navigator.share({ title: 'Idle Hands', text, url }); return; }
+        catch (e) { if (e && e.name === 'AbortError') return; }   // blocked (inside a frame, say): copy instead
+      }
+      if (await copyText(`${text} ${url}`)) toast('Link copied', 'Paste it to a friend.');
+      else toast('Share this link', url);
+    } finally { sharing = false; }
+  }
+  async function copyText(t) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(t); return true; } } catch (e) {}
+    const was = document.activeElement;
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = t; ta.setAttribute('readonly', ''); ta.setAttribute('aria-hidden', 'true');
+      ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      if (was && was.focus) was.focus({ preventScroll: true });
+      return ok;
+    } catch (e) { return false; }
   }
 
   const page = $('#page'), shaker = $('#shaker');
@@ -1212,13 +1328,17 @@ h1{margin:0;line-height:.9}
     renderSecrets();
     const s = SECRETS.find(x => x.id === id);
     sfx.chime();
-    toast(`Secret found · ${found.size} of ${SECRETS.length}`, s.toast);
-    if (found.size === SECRETS.length) setTimeout(finale, 1400);
+    const last = found.size === SECRETS.length;   // the finale right after offers the share instead
+    toast(`Secret found · ${found.size} of ${SECRETS.length}`, s.toast, last ? null : () => share(id === 'liftoff'
+      ? `My fidget spinner hit liftoff at ${fmt(best)} RPM in Idle Hands. Your turn.`
+      : `I found ${found.size} of the ${SECRETS.length} secrets hidden in Idle Hands. How many can you find?`));
+    if (last) setTimeout(finale, 1400);
     checkSkins();
     return true;
   }
   function finale() {
-    toast(`All ${SECRETS.length} secrets found`, 'You have extremely idle hands.');
+    toast(`All ${SECRETS.length} secrets found`, 'You have extremely idle hands.',
+      () => share(`I found all ${SECRETS.length} secrets hidden in Idle Hands. Bet you can't find one.`));
     rain(260); sfx.melody(); shake();
   }
 
@@ -1433,6 +1553,7 @@ h1{margin:0;line-height:.9}
   const LIFTOFF = 2000, LAND = 1700, MAXW = 21600;   // MAXW in degrees per second (3600 RPM)
   let phi = 0, omega = 960, spins = 0, spinsTotal = Math.max(0, +store.get('spinsTotal', 0) || 0), spinsSaved = 0;
   let best = Math.max(0, +store.get('best', 0) || 0), bestDirty = false, lastSave = 0;
+  let liftFrom = Infinity, lastBrag = -Infinity;   // the best speed when this liftoff began, and when we last offered to share a record
   let lifted = false, tickAcc = 0, drag = null, shownRpm = -1, shownSpins = -1, humQuiet = false, drawnStill = false, spinRect = null, combo = null;
   // Where the spinner sits on screen, for sparks. Read at the start of a frame, refreshed on scroll and resize
   addEventListener('scroll', () => { spinRect = null; }, { passive: true });
@@ -1685,6 +1806,7 @@ h1{margin:0;line-height:.9}
 
     if (!lifted && rpm >= LIFTOFF) {
       lifted = true;
+      liftFrom = found.has('liftoff') ? best : Infinity;   // the first liftoff has its own share toast
       stage.classList.add('lift');
       sfx.lift(); shake(); buzz([20, 40, 20]);
       const rc = spinRect || spinSvg.getBoundingClientRect();
@@ -1700,6 +1822,10 @@ h1{margin:0;line-height:.9}
       lifted = false;
       stage.classList.remove('lift');
       spinRect = null;
+      if (best >= liftFrom + 50 && now - lastBrag > 90000) {
+        lastBrag = now;
+        toast(`New best · ${fmt(best)} RPM`, 'Think a friend can beat it?', () => share(gameText()));
+      }
     }
 
     if (rpm > 650 && spinRect) {
@@ -3800,6 +3926,28 @@ h1{margin:0;line-height:.9}
     setTimeout(() => SURPRISES[s.label](), RM ? 150 : 650);
   }
   $('#surprise').addEventListener('click', surprise);
+  $('#share').addEventListener('click', () => share(gameText()));
+  $('#dockShare').addEventListener('click', () => shareToy(currentSection.el.id));
+  $$('.tray').forEach(el => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'tray-share';
+    b.setAttribute('aria-label', `Share a link to ${$('h2', el).textContent}`);
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14V3"/><path d="M8 7l4-4 4 4"/><path d="M8.5 10H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-1.5"/></svg>';
+    b.addEventListener('click', () => shareToy(el.id));
+    $('h2', el).after(b);
+  });
+  // A link like #bubble-wrap scrolls to that toy and flashes it
+  function arrive(smooth) {
+    let id = '';
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch (e) {}
+    const el = id && document.getElementById(id);
+    if (!el || !sections.some(x => x.el === el)) return null;
+    el.scrollIntoView({ behavior: smooth && !RM ? 'smooth' : 'auto', block: 'start' });
+    el.classList.remove('hl'); void el.offsetWidth; el.classList.add('hl');
+    setTimeout(() => el.classList.remove('hl'), 2300);
+    return el;
+  }
+  addEventListener('hashchange', () => arrive(true));
   $('#dockSurprise').addEventListener('click', surprise);
   let dockTimer = 0;
   addEventListener('resize', () => { clearTimeout(dockTimer); dockTimer = setTimeout(buildDock, 300); });
@@ -3885,6 +4033,12 @@ h1{margin:0;line-height:.9}
   comb.fit();
   buildDock();
   [zen, stk, grc, joy, dmc, icc].forEach(t => t.fit());
+  const landed = arrive(false);
+  if (landed && document.fonts && document.fonts.ready) {
+    // The fonts arrive a moment later and can nudge the layout, so line the toy up again if nobody has scrolled
+    const y = scrollY;
+    document.fonts.ready.then(() => { if (scrollY === y) landed.scrollIntoView({ block: 'start' }); });
+  }
   renderZenFoot(); renderStkFoot(); renderGearFoot(); renderJoyFoot(); renderDomFoot(); renderIceFoot();
 
   let lastT = performance.now();

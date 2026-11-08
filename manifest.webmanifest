@@ -1,7 +1,7 @@
 {
   "name": "Idle Hands",
   "short_name": "Idle Hands",
-  "description": "A drawer of fidget toys: a flickable spinner, bubble wrap, switches, a clacky keyboard, a click pen, a zipper, a music comb and a Newton's cradle.",
+  "description": "A free drawer of fidget toys with sound and haptics: a fidget spinner, bubble wrap, a clacky keyboard, dominoes, ice to crack, a zen garden and 8 hidden secrets.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
